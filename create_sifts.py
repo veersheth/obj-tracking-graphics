@@ -2,8 +2,8 @@ import numpy as np
 import cv2 as cv
 import os
 
-input_dir = "images"
-output_dir = "sifting"
+input_dir = "01_images"
+output_dir = "02_sifting"
 os.makedirs(output_dir, exist_ok=True)
 
 for file_name in os.listdir(input_dir):
