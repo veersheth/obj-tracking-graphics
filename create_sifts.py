@@ -8,9 +8,12 @@ os.makedirs(output_dir, exist_ok=True)
 
 MAX_KEYPOINTS = 1200
 THICKNESS = 2
-SCALE = 0.5  
+SCALE = 0.5
 MIN_RADIUS = 1
 MAX_RADIUS = 20
+NUM_LINES = 100
+LINE_THICKNESS = 1
+LINE_COLOR = (200, 200, 255)
 
 for file_name in os.listdir(input_dir):
     input_path = os.path.join(input_dir, file_name)
@@ -45,7 +48,11 @@ for file_name in os.listdir(input_dir):
 
         cv.circle(img, (x, y), radius, color, thickness=THICKNESS)
 
+    for i in range(min(NUM_LINES, len(kp) - 1)):
+        pt1 = tuple(map(int, kp[i].pt))
+        pt2 = tuple(map(int, kp[i + 1].pt))
+        cv.line(img, pt1, pt2, LINE_COLOR, thickness=LINE_THICKNESS)
+
     output_path = os.path.join(output_dir, file_name)
     cv.imwrite(output_path, img)
     print(f"processed: {output_path}")
-
