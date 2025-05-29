@@ -36,14 +36,14 @@ for file_name in os.listdir(input_dir):
 
     responses = np.array([k.response for k in kp])
     min_r, max_r = responses.min(), responses.max()
-    norm_responses = 255 * (responses - min_r) / (max_r - min_r + 1e-5)
+    normalized = 255 * (responses - min_r) / (max_r - min_r + 1e-5)
 
     for i, point in enumerate(kp):
         x, y = int(point.pt[0]), int(point.pt[1])
         radius = int(point.size * SCALE)
         radius = max(MIN_RADIUS, min(radius, MAX_RADIUS))
 
-        intensity = int(norm_responses[i])
+        intensity = int(normalized[i])
         color = (intensity, 255 - intensity, 128)
 
         cv.circle(img, (x, y), radius, color, thickness=THICKNESS)
